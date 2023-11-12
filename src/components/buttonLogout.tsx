@@ -31,7 +31,7 @@ export default function LogoutButton() {
           bg={useColorModeValue('white', 'gray.900')}
           borderColor={useColorModeValue('gray.200', 'gray.700')}>
           <MenuItem> <Link href='/profile'>Profile</Link></MenuItem>
-          <MenuItem>Réglages</MenuItem>
+          <MenuItem><Link href='/settingUser'>Réglages</Link></MenuItem>
           <MenuDivider />
           <MenuItem onClick={() => signOut()}>déconnection</MenuItem>
         </MenuList>

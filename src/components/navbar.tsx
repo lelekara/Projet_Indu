@@ -234,7 +234,7 @@ const NAV_ITEMS: Array<NavItem> = [
       {
         label: 'En direct',
         subLabel: 'Suivez données en direct',
-        href: '#',
+        href: '/dataDirect',
       },
       {
         label: 'Historique',
@@ -245,7 +245,7 @@ const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: 'Paramètres',
-    href: '#',
+    href: '/setting',
   },
 ]
 

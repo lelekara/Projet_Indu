@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from "./index.module.css";
 import WithSubnavigation from "~/components/navbar";
 import SplitScreen from "~/components/presentation";
+import SmallWithLogoLeft from "~/components/footer";
 
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       <link rel="icon" href="/favicon.ico" />
     </Head>
       <SplitScreen/>
+      <SmallWithLogoLeft/>
     </>
   );
 }

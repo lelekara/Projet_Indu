@@ -1,16 +1,16 @@
 import Head from "next/head";
 import Link from "next/link";
-import SocialProfileSimple from "~/components/CardUser";
 import SmallWithLogoLeft from "~/components/footer";
 import WithSubnavigation from "~/components/navbar";
+import TabHistorique from "~/components/tableauHistorique";
 
 
-export default function Profile() {
+export default function Historique() {
 
   return (
     <>
     <WithSubnavigation/>
-    <SocialProfileSimple/>
+    <TabHistorique/>
     <SmallWithLogoLeft/>
     </>
   );

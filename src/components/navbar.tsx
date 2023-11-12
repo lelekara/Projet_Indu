@@ -237,9 +237,9 @@ const NAV_ITEMS: Array<NavItem> = [
         href: '#',
       },
       {
-        label: 'historique',
+        label: 'Historique',
         subLabel: 'historique des données',
-        href: '#',
+        href: '/historique',
       },
     ],
   },

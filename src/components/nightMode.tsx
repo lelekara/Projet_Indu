@@ -10,7 +10,6 @@ export default function ColorModeToggle() {
      * Ideally, only the button component should be used (without Flex).
      * Props compatible with <Button /> are supported.
      */
-    <Flex h="100vh" justifyContent="center" alignItems="center">
       <Button
         aria-label="Toggle Color Mode"
         onClick={toggleColorMode}
@@ -18,6 +17,5 @@ export default function ColorModeToggle() {
         w="fit-content">
         {colorMode === 'light' ? <BsMoonStarsFill /> : <BsSun />}
       </Button>
-    </Flex>
   )
 }

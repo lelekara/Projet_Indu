@@ -1,5 +1,7 @@
-import { Avatar, Box, HStack, Menu, MenuButton, MenuDivider, MenuItem, MenuList, VStack, useColorModeValue } from "@chakra-ui/react";
+'use client'
+import { Avatar, Box, HStack, LinkBox, Menu, MenuButton, MenuDivider, MenuItem, MenuList, VStack, useColorModeValue } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 import { FiChevronDown } from "react-icons/fi";
 
 
@@ -28,7 +30,7 @@ export default function LogoutButton() {
         <MenuList
           bg={useColorModeValue('white', 'gray.900')}
           borderColor={useColorModeValue('gray.200', 'gray.700')}>
-          <MenuItem>Profile</MenuItem>
+          <MenuItem> <Link href='/profile'>Profile</Link></MenuItem>
           <MenuItem>Réglages</MenuItem>
           <MenuDivider />
           <MenuItem onClick={() => signOut()}>déconnection</MenuItem>

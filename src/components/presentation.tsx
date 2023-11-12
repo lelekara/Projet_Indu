@@ -88,10 +88,9 @@ export default function CallToActionWithVideo() {
               alt={'Hero Image'}
               fit={'cover'}
               align={'center'}
-              w={'100%'}
-              h={'100%'}
+              width={'100%'}
               src={
-                'img/Mathis.jpeg'
+                'img/logo-tc.jpg'
               }
             />
           </Box>

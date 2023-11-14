@@ -19,3 +19,5 @@ If you are not familiar with the different technologies used in this project, pl
 - npx prisma studio
 - Go to discord dev portal after create and fill the .env
 - npm run dev
+
+## Léandre le gros BG

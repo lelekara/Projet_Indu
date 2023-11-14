@@ -28,6 +28,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import { log } from 'console'
 import LoginButton from './buttonLogin'
 import LogoutButton from './buttonLogout'
+import Link from 'next/link'
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure()
@@ -93,7 +94,7 @@ const DesktopNav = () => {
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
               <Box
-                as="a"
+                as={Link}
                 p={2}
                 href={navItem.href ?? '#'}
                 fontSize={'sm'}
@@ -132,7 +133,7 @@ const DesktopNav = () => {
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   return (
     <Box
-      as="a"
+      as={Link}
       href={href}
       role={'group'}
       display={'block'}
@@ -181,7 +182,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
     <Stack spacing={4} onClick={children && onToggle}>
       <Box
         py={2}
-        as="a"
+        as={Link}
         href={href ?? '#'}
         justifyContent="space-between"
         alignItems="center"
@@ -225,7 +226,7 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Acceuil',
+    label: 'Accueil',
     href: '/',
   },
   {
@@ -258,3 +259,5 @@ const LoginOrNot = () => {
         </div>
     )
 }
+
+

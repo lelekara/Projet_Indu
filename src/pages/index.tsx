@@ -5,6 +5,7 @@ import styles from "./index.module.css";
 import WithSubnavigation from "~/components/navbar";
 import SplitScreen from "~/components/presentation";
 import SmallWithLogoLeft from "~/components/footer";
+import MyComponent from "~/components/mqtt";
 
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <link rel="icon" href="/favicon.ico" />
     </Head>
       <SplitScreen/>
+      <MyComponent/>
       <SmallWithLogoLeft/>
     </>
   );

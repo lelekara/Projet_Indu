@@ -7,7 +7,7 @@ const mqttTest: React.FC = () => {
 
   useEffect(() => {
     // Abonne-toi à un sujet MQTT
-    mqttClient.subscribe('/#');
+    mqttClient.subscribe('/groupe5/#');
 
     // Écoute les messages du sujet
     mqttClient.on('message', (topic, value) => {
@@ -16,7 +16,7 @@ const mqttTest: React.FC = () => {
 
     // N'oublie pas de te désabonner lorsque le composant est démonté
     return () => {
-      mqttClient.unsubscribe('/#');
+      mqttClient.unsubscribe('');
     };
   }, []); // Assure-toi de dépendances vides pour ne t'abonner qu'une seule fois
 

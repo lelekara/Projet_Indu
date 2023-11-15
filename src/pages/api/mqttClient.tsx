@@ -2,9 +2,10 @@
 
 import mqtt, { MqttClient } from 'mqtt';
 
-const client: MqttClient = mqtt.connect("ws://10.43.170.61",{
+const client = mqtt.connect("ws://helhatechniquecharleroi.xyz",{
     port: 9001,
-    clientId:"BM T3"
-});
+    username: "groupe5",
+    password: "groupe5",
+  })
 
 export default client;

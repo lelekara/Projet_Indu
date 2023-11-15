@@ -7,7 +7,7 @@ const mqttTest: React.FC = () => {
 
   useEffect(() => {
     // Abonne-toi à un sujet MQTT
-    mqttClient.subscribe('/groupe3/test');
+    mqttClient.subscribe('/groupe3/testdc1');
 
     // Écoute les messages du sujet
     mqttClient.on('message', (topic, value) => {

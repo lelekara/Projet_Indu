@@ -1,21 +1,29 @@
-import { TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Tfoot, Switch } from "@chakra-ui/react";
-import { useState } from "react";
+import { TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Tfoot, Switch, Tag } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 
 export default function TabDirect() {
 
   const [tag, setTag] = useState([])
 
-  function getTags() {
-    fetch("/api/getAllTags", {
+  async function getTags() {
+    await fetch("/api/getAllTags", {
       method: "POST"
       }).then(res => {
         console.log(res.status);
-        res.json().then(Tag => {
-          console.log(tag)
+        void res.json().then((tags) => {
+          console.log(tags)
         })
       })
+  }
   
+  const [tags, setTags] = useState<Tag[]>([]);
+
+useEffect(() => {
+    getTagsSorted().then((tags) => {
+      setTags(tags);
+    });
+  }, []);
 
     return (
         <TableContainer>
@@ -32,12 +40,12 @@ export default function TabDirect() {
     </Thead>
     <Tbody>
       {
-        tag.map((tag) => <>
-        <Tr key={tag.id}>
-          <Td>{tag.id}</Td>
-          <Td>{tag.topic}</Td>
-          <Td>{tag.value}</Td>
-          <Td>{tag.lastSeen}</Td>
+        tag.map((tags) => <>
+        <Tr key={tags.id}>
+          <Td>{tags.id}</Td>
+          <Td>{tags.topic}</Td>
+          <Td>{tags.value}</Td>
+          <Td>{tags.lastSeen}</Td>
           <Td><Switch/></Td>
         </Tr>
       </>
@@ -45,5 +53,9 @@ export default function TabDirect() {
     </Tbody>
   </Table>
 </TableContainer>
-    )}
+    )
+}
+
+function getTagsSorted() {
+  throw new Error("Function not implemented.");
 }

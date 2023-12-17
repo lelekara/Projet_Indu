@@ -1,32 +1,44 @@
-// mqttClient.ts
 
-import mqtt, { MqttClient } from "mqtt";
-import { db } from "~/server/db";
+import mqtt from "mqtt";
 
-const client = mqtt.connect("ws://helhatechniquecharleroi.xyz", {
-  port: 9001,
-  username: "groupe5",
-  password: "groupe5",
-});
+import { Prisma, PrismaClient } from "@prisma/client";
 
-export default client;
+//import { db } from "./server/db";
+
+const db = new PrismaClient()
+
+const client = mqtt.connect("mqtt://helhatechniquecharleroi.xyz", {
+    username: "groupe5",
+    password: "groupe5",
+    port: 1883
+})
 
 client.on("connect", () => {
-  console.log("connected");
-  client.subscribe("/groupe5/#");
-});
+    console.log("connected mqtt");
+    client.subscribe("/groupe5/#");
+})
 
-client.on("message", async (topicMQTT, value) => {
-  console.log("connected");
-     const tag =  await db.tags.upsert({
-    where: { topic: topicMQTT },
-    create: {
-      topic: topicMQTT,
-      value: value.toString(),
-    },
-    update: {
-      value: value.toString(),
-      lastSeen: new Date(),
-    },
-  });
+
+client.on("message", (topicMQTT, value) => {
+    topicMQTT = topicMQTT.replace("/groupe5/", "");
+    console.log(topicMQTT + "\t", value.toString());
+
+    db.tag.upsert({
+        where: {
+            topic: topicMQTT,
+        },
+        create: {
+            topic: topicMQTT,
+            value: value.toString(),
+        },
+        update: {
+            value: value.toString(),
+
+            lastseen: new Date(),
+        },
+    }).then(() => {
+        // Faites ce que vous devez faire après la résolution de la promesse ici
+    }).catch((error) => {
+        console.error("Erreur lors de la mise à jour de la base de données :", error);
+    });
 });

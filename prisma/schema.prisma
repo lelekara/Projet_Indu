@@ -14,17 +14,14 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-// model Post {
-//     id        Int      @id @default(autoincrement())
-//     name      String
-//     createdAt DateTime @default(now())
-//     updatedAt DateTime @updatedAt
+model Post {
+    id        Int      @id @default(autoincrement())
+    name      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
-//     createdBy   User   @relation(fields: [createdById], references: [id])
-//     createdById String
-
-//     @@index([name])
-// }
+    @@index([name])
+}
 
 // Necessary for Next auth
 model Account {
@@ -58,32 +55,25 @@ model User {
     name          String?
     email         String?   @unique
     emailVerified DateTime?
+    password      String? // @db.Text
     image         String?
     accounts      Account[]
     sessions      Session[]
+    // posts         Post[]
 }
 
 model VerificationToken {
     identifier String
     token      String   @unique
-    expires    DateTime?
+    expires    DateTime
 
     @@unique([identifier, token])
 }
 
- model Tags {
-    id            Int    @id @default(autoincrement())
-    topic         String
-    value         String
-    lastSeen      DateTime
-    enabled       Boolean
+model tag {
+    id       Int      @id @default(autoincrement())
+    topic    String   @unique
+    value    String
+    lastseen DateTime @default(now())
+    enabled  Boolean  @default(false)
 }
-
- model Post {
-    id            Int    @id @default(autoincrement())
-    topic         String
-    value         String
-    lastSeen      DateTime  @default(now())
-    enabled       Boolean   @default(false)
-}
-

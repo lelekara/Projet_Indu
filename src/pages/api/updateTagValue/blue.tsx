@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try {
       const updatedTag = await prisma.tag.update({
-        where: { topic: 'blueTruck1' }, // Met le bon topic correspondant au tag "green"
+        where: { topic: 'blueTruck1' }, 
         data: { value },
       });
 

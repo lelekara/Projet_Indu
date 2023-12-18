@@ -1,9 +1,16 @@
-import { Card, CardBody, CardHeader, Center, Heading, Select } from "@chakra-ui/react";
+import { Button, Card, CardBody, CardHeader, Center, Heading, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
+interface Tag {
+  id: number;
+  topic: string;
+  value: string;
+}
+
 export default function TabDirect() {
-  const [tags, setTags] = useState([]);
-  const [selectedColor, setSelectedColor] = useState("");
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [selectedColor, setSelectedColor] = useState<string>("");
+  const [tagValue, setTagValue] = useState<number>(0);
 
   useEffect(() => {
     setInterval(() => {
@@ -21,7 +28,7 @@ export default function TabDirect() {
         }
         return res.json();
       })
-      .then((tagsData) => {
+      .then((tagsData: Tag[]) => {
         console.log(tagsData);
         setTags(tagsData);
       })
@@ -34,17 +41,20 @@ export default function TabDirect() {
   const blueTag = tags.find((tag) => tag.topic === "blueTruck1");
   const redTag = tags.find((tag) => tag.topic === "redTruck1");
 
-  const handleColorChange = (e) => {
+  const handleColorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedColor(e.target.value);
+  };
+
+  const handleButtonClick = () => {
+    // Inverse la valeur du tag entre 0 et 1
+    const newTagValue = tagValue === 0 ? 1 : 0;
+    setTagValue(newTagValue);
 
     // Met à jour la valeur du tag dans la base de données
     // Tu devras implémenter la logique de mise à jour ici, par exemple, à l'aide d'une requête API
-    const newValue = "1";
-
-    // Exemple d'utilisation de fetch pour mettre à jour la valeur du tag (à adapter à ta logique)
     fetch(`/api/updateTagValue/${selectedColor}`, {
       method: "POST",
-      body: JSON.stringify({ value: newValue }),
+      body: JSON.stringify({ value: newTagValue.toString() }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -55,7 +65,7 @@ export default function TabDirect() {
         }
         return res.json();
       })
-      .then((updatedTag) => {
+      .then((updatedTag: Tag) => {
         console.log("Tag mis à jour :", updatedTag);
       })
       .catch((err) => {
@@ -65,9 +75,9 @@ export default function TabDirect() {
 
   return (
     <>
-      <Card align="center">
+      <Card align="center" marginBottom="4" marginTop="4" width="45%" marginLeft="4">
         <CardHeader>
-          <Heading size="md"> Chose lamp color</Heading>
+          <Heading size="md"> Choose lamp color</Heading>
         </CardHeader>
         <CardBody>
           <Select placeholder="Select option" onChange={handleColorChange}>
@@ -75,26 +85,20 @@ export default function TabDirect() {
             <option value="blue">Blue</option>
             <option value="red">Red</option>
           </Select>
-        </CardBody>
-      </Card>
-      <Card align="center" marginTop={4}>
-        <CardHeader>
-          <Heading size="md"> Tags</Heading>
-        </CardHeader>
-        <CardBody>
-          <Center>
+            <Button onClick={handleButtonClick} colorScheme="green" size="sm" width="100%" marginTop="2">Changer d'état</Button>
+            <Center>
             <Heading size="md">
-              {selectedColor === "green" && greenTag && (
+              {greenTag && (
                 <Heading size="md">
                   {greenTag.topic} : {greenTag.value}
                 </Heading>
               )}
-              {selectedColor === "blue" && blueTag && (
+              {blueTag  && (
                 <Heading size="md">
                   {blueTag.topic} : {blueTag.value}
                 </Heading>
               )}
-              {selectedColor === "red" && redTag && (
+              {redTag && (
                 <Heading size="md">
                   {redTag.topic} : {redTag.value}
                 </Heading>

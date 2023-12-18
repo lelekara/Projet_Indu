@@ -7,20 +7,20 @@ import { Prisma, PrismaClient } from "@prisma/client";
 
 const db = new PrismaClient()
 
-const client = mqtt.connect("mqtt://helhatechniquecharleroi.xyz", {
-    username: "groupe5",
-    password: "groupe5",
-    port: 1883
+const client = mqtt.connect("ws://helhatechniquecharleroi.xyz", {
+    username: "groupe3",
+    password: "groupe3",
+    port: 9001
 })
 
 client.on("connect", () => {
     console.log("connected mqtt");
-    client.subscribe("/groupe5/#");
+    client.subscribe("/groupe3/#");
 })
 
 
 client.on("message", (topicMQTT, value) => {
-    topicMQTT = topicMQTT.replace("/groupe5/", "");
+    topicMQTT = topicMQTT.replace("/groupe3/", "");
     console.log(topicMQTT + "\t", value.toString());
 
     db.tag.upsert({
@@ -33,7 +33,6 @@ client.on("message", (topicMQTT, value) => {
         },
         update: {
             value: value.toString(),
-
             lastseen: new Date(),
         },
     }).then(() => {

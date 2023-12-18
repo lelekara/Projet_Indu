@@ -2,6 +2,7 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
+import { set } from 'zod';
 
 const prisma = new PrismaClient();
 
@@ -12,6 +13,7 @@ export default async function handler(
     if (req.method === 'POST') {
         try {
             const tags = await prisma.tag.findMany();
+            
             res.status(200).json(tags);
         } catch (error) {
             // console.error('Erreur lors de la récupération des tags:', error.message);

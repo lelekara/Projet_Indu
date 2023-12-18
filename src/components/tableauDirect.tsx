@@ -1,19 +1,20 @@
 import {
-  Button,
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   Center,
   Heading,
   Select,
-  SelectField,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { db } from "~/server/db";
 
 export default function TabDirect() {
   const [tags, setTags] = useState([]);
+  const [SelectColor, setSelectColor] = useState(" ");
+
+  function handleChangeColor (color){
+    setSelectColor(color);
+  }
 
   useEffect(() => {
     setInterval(() => {
@@ -47,10 +48,12 @@ export default function TabDirect() {
         <Heading size="md"> Chose lamp color</Heading>
       </CardHeader>
       <CardBody>
-        <Select placeholder="Select option">
+        <Select placeholder="Select option" onChange={(e) => 
+        handleChangeColor(e.target.value)}
+        value={SelectColor}>
           <option value="0">Green</option>
           <option value="1">Yellow</option>
-          <option value="option3">Red</option>
+          <option value="2">Red</option>
         </Select>
       </CardBody>
     </Card>
@@ -63,7 +66,8 @@ export default function TabDirect() {
           <Heading size="md">
             {tags.map((tag) => (
               <Heading size="md" key={tag.id}>
-                {tag.topic} : {tag.value}
+                {tag.topic} : {" "}
+                {tag.topic === SelectColor ? "selected" : tag.value} 
               </Heading>
             ))}
           </Heading>

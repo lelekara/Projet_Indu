@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
 
     try {
-      client.publish("/groupe3/evt/GreenTruck3", "0");
+      client.publish("/groupe3/evt/GreenTruck3", "1");
       client.publish("/groupe3/evt/BlueTruck3", "0");
       client.publish("/groupe3/evt/RedTruck3", "1");
 

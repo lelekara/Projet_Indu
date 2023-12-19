@@ -1,5 +1,15 @@
-import { Button, Card, CardBody, CardHeader, Center, Heading, Select } from "@chakra-ui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Center,
+  Heading,
+  Progress,
+  Select,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { client } from "~/broker.mjs";
 
 interface Tag {
   id: number;
@@ -37,12 +47,15 @@ export default function TabDirect() {
       });
   }
 
-  const greenTag = tags.find((tag) => tag.topic === "greenTruck1");
-  const blueTag = tags.find((tag) => tag.topic === "blueTruck1");
-  const redTag = tags.find((tag) => tag.topic === "redTruck1");
+  const greenTag = tags.find((tag) => tag.topic === "GreenTruck3");
+  const blueTag = tags.find((tag) => tag.topic === "BlueTruck3");
+  const redTag = tags.find((tag) => tag.topic === "RedTruck3");
+  const air = tags.find((tag) => tag.topic === "air");
 
   const handleColorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedColor(e.target.value);
+    console.log(selectedColor);
+    
   };
 
   const handleButtonClick = () => {
@@ -54,28 +67,31 @@ export default function TabDirect() {
     // Tu devras implémenter la logique de mise à jour ici, par exemple, à l'aide d'une requête API
     fetch(`/api/updateTagValue/${selectedColor}`, {
       method: "POST",
-      body: JSON.stringify({ value: newTagValue.toString() }),
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Erreur HTTP! Statut: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`Erreur HTTP! Statut: ${res.status}`);
         return res.json();
       })
-      .then((updatedTag: Tag) => {
-        console.log("Tag mis à jour :", updatedTag);
+      .then((data) => {
+        console.log(data);
       })
       .catch((err) => {
-        console.error("Erreur lors de la mise à jour du tag :", err);
+        console.log(err);
       });
+      
   };
 
   return (
     <>
-      <Card align="center" marginBottom="4" marginTop="4" width="45%" marginLeft="4">
+      <Card
+        align="center"
+        marginBottom="4"
+        marginTop="4"
+        marginLeft="4"
+      >
         <CardHeader>
           <Heading size="md"> Choose lamp color</Heading>
         </CardHeader>
@@ -84,16 +100,28 @@ export default function TabDirect() {
             <option value="green">Green</option>
             <option value="blue">Blue</option>
             <option value="red">Red</option>
+            <option value="yellow">Yellow</option>
+            <option value="purple">Purple</option>
+            <option value="cyan">Cyan</option>
+            <option value="white">White</option>
           </Select>
-            <Button onClick={handleButtonClick} colorScheme="green" size="sm" width="100%" marginTop="2">Changer d'état</Button>
-            <Center>
+          <Button
+            onClick={handleButtonClick}
+            colorScheme="green"
+            size="sm"
+            width="100%"
+            marginTop="2"
+          >
+            Changer d'état
+          </Button>
+          <Center>
             <Heading size="md">
               {greenTag && (
                 <Heading size="md">
                   {greenTag.topic} : {greenTag.value}
                 </Heading>
               )}
-              {blueTag  && (
+              {blueTag && (
                 <Heading size="md">
                   {blueTag.topic} : {blueTag.value}
                 </Heading>
@@ -107,6 +135,20 @@ export default function TabDirect() {
           </Center>
         </CardBody>
       </Card>
+      <Card align="center"
+        marginBottom="4"
+        marginTop="4"
+        marginLeft="4">
+    <CardHeader>
+      <Heading size="md" alignItems="Center">Air controller</Heading>
+    </CardHeader>
+    <CardBody>
+      <Heading size="md">Air quality : {air?.value}</Heading>
+    {/* <Progress size="xs" value={} colorScheme="green" /> */}
+    </CardBody>
+  </Card>
+
     </>
+    
   );
 }

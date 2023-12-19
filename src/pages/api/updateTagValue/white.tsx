@@ -6,11 +6,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
 
     try {
-      client.publish("/groupe3/evt/GreenTruck3", "0");
-      client.publish("/groupe3/evt/BlueTruck3", "0");
+      client.publish("/groupe3/evt/GreenTruck3", "1");
+      client.publish("/groupe3/evt/BlueTruck3", "1");
       client.publish("/groupe3/evt/RedTruck3", "1");
 
-      res.status(200).json({ message: 'Tag "red" mis à jour' });
+      res.status(200).json({ message: 'Tag "white" mis à jour' });
     } catch (error) {
       console.error('Erreur lors de la mise à jour du tag "green" :', error);
       res.status(500).json({ error: 'Erreur serveur lors de la mise à jour du tag "green"' });

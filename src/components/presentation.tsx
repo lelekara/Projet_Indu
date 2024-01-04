@@ -38,38 +38,19 @@ export default function CallToActionWithVideo() {
                 bg: 'red.400',
                 zIndex: -1,
               }}>
-              Write once,
+              Projet Industriel 
             </Text>
             <br />
             <Text as={'span'} color={'red.400'}>
-              use everywhere!
+             Groupe 3
             </Text>
           </Heading>
           <Text color={'gray.500'}>
-            Snippy is a rich coding snippets app that lets you create your own code
-            snippets, categorize them, and even sync them in the cloud so you can use them
-            anywhere. All that is free!
+          Aujourd'hui, nous sommes fier de vous présenter notre Projet Industriel, une révolution dans l'industrie. Grâce à Ewon,
+          nous avons sécurisé chaque processus de communication avec un automate. transformant l'usine en un écosystème intelligent. L'utilisation de MQTT nous permet 
+          de récupérer et partager chaque donnée cruciale en temps réel sur notre site internet. Bienvenue dans l'avenir de la production,
+          où la technologie et la connectivité redéfinissent la norme.
           </Text>
-          <Stack spacing={{ base: 4, sm: 6 }} direction={{ base: 'column', sm: 'row' }}>
-            <Button
-              rounded={'full'}
-              size={'lg'}
-              fontWeight={'normal'}
-              px={6}
-              colorScheme={'red'}
-              bg={'red.400'}
-              _hover={{ bg: 'red.500' }}>
-              Get started
-            </Button>
-            <Button
-              rounded={'full'}
-              size={'lg'}
-              fontWeight={'normal'}
-              px={6}
-              leftIcon={<PlayIcon h={4} w={4} color={'red.300'} />}>
-              How It Works
-            </Button>
-          </Stack>
         </Stack>
         <Flex
           flex={1}
@@ -79,7 +60,7 @@ export default function CallToActionWithVideo() {
           w={'full'}>
           <Box
             position={'relative'}
-            height={'700px'}
+            height={'570px'}
             rounded={'2xl'}
             boxShadow={'2xl'}
             width={'full'}
@@ -89,9 +70,7 @@ export default function CallToActionWithVideo() {
               fit={'cover'}
               align={'center'}
               width={'100%'}
-              src={
-                'img/logo-tc.jpg'
-              }
+              src={'img/ImageAccueil.jpeg' }
             />
           </Box>
         </Flex>

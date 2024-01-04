@@ -1,5 +1,8 @@
-import { TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Tfoot, Switch } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
+import { TableContainer, Table,Thead, Tr, Th, Tbody, Td, Checkbox, Icon, Switch } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import SwitchSetting from "./switchSeting";
+import { db } from "~/server/db";
 
 export default function TabHistorique() {
   const [tags, setTags] = useState([]);
@@ -11,6 +14,7 @@ export default function TabHistorique() {
     }
     , 1000);
   }, []);
+
 
   function getTags() {
     fetch("/api/getAllTags", {
@@ -39,9 +43,9 @@ export default function TabHistorique() {
           <Tr>
             <Th>Id</Th>
             <Th>Topic</Th>
-            <Th>Lastseen</Th>
             <Th isNumeric>Value</Th>
             <Th isNumeric>Enabled</Th>
+            <Th>visible</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -49,9 +53,17 @@ export default function TabHistorique() {
             <Tr key={tag.id}>
               <Td>{tag.id}</Td>
               <Td>{tag.topic}</Td>
-              <Td>{tag.lastseen}</Td>
               <Td isNumeric>{tag.value}</Td>
-              <Td isNumeric><Switch /></Td>
+              <Td isNumeric>
+                    {tag?.enabled ? (
+                      <Checkbox isReadOnly defaultChecked colorScheme="green" />
+                    ) : (
+                      <Checkbox isReadOnly defaultChecked colorScheme="red" icon={<Icon as={CloseIcon} />}/>
+                    )}
+                  </Td>
+              <Td>
+                <Switch/>
+              </Td>
             </Tr>
           ))}
         </Tbody>

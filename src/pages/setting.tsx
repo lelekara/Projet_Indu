@@ -1,8 +1,7 @@
-import Head from "next/head";
-import Link from "next/link";
 import SmallWithLogoLeft from "~/components/footer";
 import WithSubnavigation from "~/components/navbar";
-import SwitchSetting from "~/components/switchSeting";
+import TabHistorique from "~/components/tableauHistorique";
+
 
 
 export default function Setting() {
@@ -10,7 +9,7 @@ export default function Setting() {
   return (
     <>
     <WithSubnavigation/>
-    <SwitchSetting/>
+    <TabHistorique/>
     <SmallWithLogoLeft/>
     </>
   );

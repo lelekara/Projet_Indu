@@ -13,6 +13,8 @@ import { useSession } from 'next-auth/react';
 
 export default function SocialProfileSimple() {
     const { data: Session } = useSession();
+    const allowedUsers = ['lelekara']; //ajout user ici
+    const currentUser = Session?.user?.name;
   return (
     <Center py={6}>
       <Box
@@ -45,6 +47,15 @@ export default function SocialProfileSimple() {
         </Heading>
         <Text fontWeight={600} color={'gray.500'} mb={4}>
           {Session?.user?.email}
+          {allowedUsers.includes(currentUser) ? ( 
+            <Text fontWeight={600} color={'gray.500'} mb={4}>
+             Rôle : Admin
+            </Text>
+          ) : (
+            <Text fontWeight={600} color={'gray.500'} mb={4}>
+              Rôle : User
+            </Text>
+          )}
         </Text>
         <Stack mt={8} direction={'row'} spacing={4}>
         </Stack>

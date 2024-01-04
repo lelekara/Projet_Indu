@@ -39,7 +39,7 @@ export default function TabDirect() {
         return res.json();
       })
       .then((tagsData: Tag[]) => {
-        console.log(tagsData);
+        // console.log(tagsData);
         setTags(tagsData);
       })
       .catch((err) => {
@@ -53,14 +53,13 @@ export default function TabDirect() {
   const redTag = tags.find((tag) => tag.topic === "RedTruck3");
   const air = tags.find((tag) => tag.topic === "air");
 
-  const handleColorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleColorChange = (e : React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedColor(e.target.value);
-    console.log(selectedColor);
-    
+    console.log(e.target.value);
   };
 
   const handleButtonClick = () => {
-    // Inverse la valeur du tag entre 0 et 1
+    // // Inverse la valeur du tag entre 0 et 1
     const newTagValue = tagValue === 0 ? 1 : 0;
     setTagValue(newTagValue);
 

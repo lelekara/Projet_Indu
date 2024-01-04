@@ -3,36 +3,27 @@
 import {
   Box,
   Flex,
-  Text,
   IconButton,
-  Button,
   Stack,
   Collapse,
-  Icon,
   Popover,
   PopoverTrigger,
-  PopoverContent,
   useColorModeValue,
-  useBreakpointValue,
   useDisclosure,
   Img,
 } from '@chakra-ui/react'
 import {
   HamburgerIcon,
   CloseIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
 } from '@chakra-ui/icons'
 import ColorModeToggle from './nightMode'
-import { signIn, signOut, useSession } from 'next-auth/react'
-import { log } from 'console'
+import { useSession } from 'next-auth/react'
 import LoginButton from './buttonLogin'
 import LogoutButton from './buttonLogout'
 import Link from 'next/link'
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure()
-  const { data: Session } = useSession();
 
   return (
     <Box>

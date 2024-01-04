@@ -10,7 +10,7 @@ export default function Home() {
     <>
     <WithSubnavigation/>
     <Head>
-      <title>Technocampus G3 | Acceuil</title>
+      <title>Technocampus G3 | Accueil</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
       <SplitScreen/>

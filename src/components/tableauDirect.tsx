@@ -1,4 +1,13 @@
-import { Button, Card, CardBody, CardHeader, Center, Heading, Select } from "@chakra-ui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Center,
+  Heading,
+  Progress,
+  Select,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { client } from "~/broker.mjs";
 
@@ -38,54 +47,76 @@ export default function TabDirect() {
       });
   }
 
-  // function handleColorChange(event: React.ChangeEvent<HTMLSelectElement>) {
-  //   setSelectedColor(event.target.value);
-  //   if (selectedColor === "green") {
-  //     client.publish("evt/GreenTruck3", "1");
-  //     client.publish("evt/RedTruck3", "0");
-  //     client.publish("evt/BlueTruck3", "0");
-  //   } else if (selectedColor === "blue") {
-  //     client.publish("evt/GreenTruck3", "0");
-  //     client.publish("evt/RedTruck3", "0");
-  //     client.publish("evt/BlueTruck3", "1");
-  //   } else if (selectedColor === "red") {
-  //     client.publish("evt/GreenTruck3", "0");
-  //     client.publish("evt/RedTruck3", "1");
-  //     client.publish("evt/BlueTruck3", "0");
-  //   }
-  //   console.log(selectedColor);
-  // }
-
-  function handleOnCLick(color : String ) {
-    if (selectedColor === "green") {
-      client.publish("evt/GreenTruck3", "1");
-      client.publish("evt/RedTruck3", "0");
-      client.publish("evt/BlueTruck3", "0");
-    } else if (selectedColor === "blue") {
-      client.publish("evt/GreenTruck3", "0");
-      client.publish("evt/RedTruck3", "0");
-      client.publish("evt/BlueTruck3", "1");
-    } else if (selectedColor === "red") {
-      client.publish("evt/GreenTruck3", "0");
-      client.publish("evt/RedTruck3", "1");
-      client.publish("evt/BlueTruck3", "0");
-    }
-  }
 
   const greenTag = tags.find((tag) => tag.topic === "GreenTruck3");
   const blueTag = tags.find((tag) => tag.topic === "BlueTruck3");
   const redTag = tags.find((tag) => tag.topic === "RedTruck3");
+  const air = tags.find((tag) => tag.topic === "air");
+
+  const handleColorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedColor(e.target.value);
+    console.log(selectedColor);
+    
+  };
+
+  const handleButtonClick = () => {
+    // Inverse la valeur du tag entre 0 et 1
+    const newTagValue = tagValue === 0 ? 1 : 0;
+    setTagValue(newTagValue);
+
+    // Met à jour la valeur du tag dans la base de données
+    // Tu devras implémenter la logique de mise à jour ici, par exemple, à l'aide d'une requête API
+    fetch(`/api/updateTagValue/${selectedColor}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(`Erreur HTTP! Statut: ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      
+  };
 
   return (
     <>
-      <Card align="center" marginBottom="4" marginTop="4" width="45%" marginLeft="4">
+      <Card
+        align="center"
+        marginBottom="4"
+        marginTop="4"
+        marginLeft="4"
+      >
         <CardHeader>
           <Heading size="md"> Choose lamp color</Heading>
         </CardHeader>
         <CardBody>
-          <Button onClick={() => handleOnCLick("/evt/GreenTruck3")} colorScheme="green" size="sm" width="100%" marginTop="2">vert</Button>
-          <Button onClick={() => handleOnCLick("/evt/BlueTruck3")} colorScheme="blue" size="sm" width="100%" marginTop="2">bleu</Button>
-          <Button onClick={() => handleOnCLick("/evt/RedTruck3")} colorScheme="red" size="sm" width="100%" marginTop="2">rouge</Button>
+
+          <Select placeholder="Select option" onChange={handleColorChange}>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+            <option value="red">Red</option>
+            <option value="yellow">Yellow</option>
+            <option value="purple">Purple</option>
+            <option value="cyan">Cyan</option>
+            <option value="white">White</option>
+          </Select>
+          <Button
+            onClick={handleButtonClick}
+            colorScheme="green"
+            size="sm"
+            width="100%"
+            marginTop="2"
+          >
+            Changer d'état
+          </Button>
+
           <Center>
             <Heading size="md">
               {greenTag && (
@@ -93,7 +124,7 @@ export default function TabDirect() {
                   {greenTag.topic} : {greenTag.value}
                 </Heading>
               )}
-              {blueTag  && (
+              {blueTag && (
                 <Heading size="md">
                   {blueTag.topic} : {blueTag.value}
                 </Heading>
@@ -107,6 +138,20 @@ export default function TabDirect() {
           </Center>
         </CardBody>
       </Card>
+      <Card align="center"
+        marginBottom="4"
+        marginTop="4"
+        marginLeft="4">
+    <CardHeader>
+      <Heading size="md" alignItems="Center">Air controller</Heading>
+    </CardHeader>
+    <CardBody>
+      <Heading size="md">Air quality : {air?.value}</Heading>
+    {/* <Progress size="xs" value={} colorScheme="green" /> */}
+    </CardBody>
+  </Card>
+
     </>
+    
   );
 }

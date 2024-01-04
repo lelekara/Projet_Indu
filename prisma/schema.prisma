@@ -70,7 +70,7 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-model tag {
+model Tag {
     id       Int      @id @default(autoincrement())
     topic    String   @unique
     value    String

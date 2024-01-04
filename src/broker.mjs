@@ -1,13 +1,13 @@
 
 import mqtt from "mqtt";
 
-import { Prisma, PrismaClient } from "@prisma/client";
+import {PrismaClient } from "@prisma/client";
 
 //import { db } from "./server/db";
 
 const db = new PrismaClient()
 
-const client = mqtt.connect("ws://helhatechniquecharleroi.xyz", {
+export const client = mqtt.connect("ws://helhatechniquecharleroi.xyz", {
     username: "groupe3",
     password: "groupe3",
     port: 9001

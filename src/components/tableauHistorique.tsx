@@ -71,8 +71,7 @@ export default function TabHistorique() {
             <Th>Id</Th>
             <Th>Topic</Th>
             <Th isNumeric>Value</Th>
-            {/* <Th isNumeric>Enabled</Th> */}
-            {/* <Th>visible</Th> */}
+            <Th isNumeric>lastSeen</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -81,6 +80,7 @@ export default function TabHistorique() {
               <Td>{tag.id}</Td>
               <Td>{tag.topic}</Td>
               <Td isNumeric>{tag.value}</Td>
+              <Td isNumeric>{tag.lastseen}</Td>
               {/* <Td isNumeric>
                     {tag?.enabled ? (
                       <Checkbox isReadOnly defaultChecked colorScheme="green" />

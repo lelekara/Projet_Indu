@@ -75,7 +75,7 @@ const DesktopNav = () => {
   const linkHoverColor = useColorModeValue('gray.800', 'white')
   const { data: Session } = useSession();
 
-  const allowedUsers = ['lelekara']; //ajout user ici
+  const allowedUsers = ['lelekara','jakela','the0_o']; //ajout user ici
   const currentUser = Session?.user?.name;
 
   const NAV_ITEMS: Array<NavItem> = [

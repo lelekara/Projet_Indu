@@ -13,7 +13,7 @@ import { useSession } from 'next-auth/react';
 
 export default function SocialProfileSimple() {
     const { data: Session } = useSession();
-    const allowedUsers = ['lelekara']; //ajout user ici
+    const allowedUsers = ['lelekara','jakela','the0_o']; //ajout user ici
     const currentUser = Session?.user?.name;
   return (
     <Center py={6}>
